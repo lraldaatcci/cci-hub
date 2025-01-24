@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@repo/ts-schemas": "*",
+    "@repo/ts-schemas": "workspace:*",
     "@astrojs/check": "^0.7.0",
     "@astrojs/node": "^9.0.1",
     "@astrojs/tailwind": "^5.1.0",
-    "@repo/backend": "*",
+    "@repo/backend": "workspace:*",
     "@trpc/client": "^11.0.0-rc.708",
     "astro": "^5.1.8",
     "lenis": "^1.0.45",
