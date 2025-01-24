@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
+import viteConfig from "./vite.config";
 
 import tailwind from "@astrojs/tailwind";
 
@@ -9,4 +10,5 @@ export default defineConfig({
   output: "server",
   adapter: node({ mode: "standalone" }),
   integrations: [tailwind({ configFile: "./tailwind.config.mjs" })],
+  vite: viteConfig,
 });
