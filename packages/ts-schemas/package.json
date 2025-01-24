@@ -1,0 +1,14 @@
+{
+  "name": "@repo/ts-schemas",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "exports": {
+    ".": "./index.ts"
+  }
+}
