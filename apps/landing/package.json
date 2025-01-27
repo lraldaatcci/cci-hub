@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "container:build": "cp ../../bun.lockb ./bun.lockb && docker build -t landing-cci .",
+    "container:run": "docker run -p 4321:4321 landing-cci"
   },
   "dependencies": {
     "@repo/ts-schemas": "workspace:*",

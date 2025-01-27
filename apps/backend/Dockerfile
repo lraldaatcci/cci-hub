@@ -1,17 +1,26 @@
-FROM oven/bun:1.2.0
+FROM oven/bun:1.2.0 as base
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY ../../packages/ts-schemas ./packages/ts-schemas
+FROM base AS install 
+RUN mkdir -p /temp/dev 
+COPY bun.lockb package.json /temp/dev/
+RUN cd /temp/dev && bun install
 
-RUN cd ./packages/ts-schemas && bun link
+RUN mkdir -p /temp/prod
+COPY bun.lockb package.json /temp/prod/
+COPY package.json /temp/prod/
+RUN cd /temp/prod && bun install
 
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
-RUN bun link @repo/ts-schemas
+# Test step
+# ENV NODE_ENV=TEST
+# RUN bun test
+# RUN bun build
 
-RUN bun install
-
-EXPOSE 9000
-
-CMD ["bun", "index.ts"]
+USER bun
+EXPOSE 9000/tcp
+ENTRYPOINT ["bun","run","apps/backend/index.ts"]

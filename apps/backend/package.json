@@ -6,7 +6,9 @@
     "build": "tsc --emitDeclarationOnly",
     "dev": "bun run --watch index.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "container:build": "cp ../../bun.lockb ./bun.lockb && docker build -t backend-cci .",
+    "container:run": "docker run -p 9000:9000 backend-cci"
   },
   "devDependencies": {
     "@types/bun": "latest",

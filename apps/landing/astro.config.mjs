@@ -7,7 +7,7 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site: "https://master--kreatif-software.netlify.app",
-  output: "server",
+  output: "static",
   adapter: node({ mode: "standalone" }),
   integrations: [tailwind({ configFile: "./tailwind.config.mjs" })],
   vite: viteConfig,
