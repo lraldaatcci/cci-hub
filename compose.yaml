@@ -22,4 +22,4 @@ services:
 
 secrets:
   backend-env:
-    file: ./secrets/backend.env
+    file: /home/lralda/secrets/backend.env
