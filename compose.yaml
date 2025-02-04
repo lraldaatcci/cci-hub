@@ -9,7 +9,7 @@ services:
     image: backend-cci:latest
     container_name: backend-cci
     ports:
-      - 3000:3000
+      - 9000:9000
     secrets:
       - backend-env
     environment:
