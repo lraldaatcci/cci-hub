@@ -258,7 +258,7 @@ export const checkCreditRecord = async (creditRecord: CreditRecord) => {
   let guaranteedIncome = 0;
   //const variableIncome = 0;
   let fixedExpenses = 0;
-  //const variableExpenses = 0;
+  //const variableExpenses = 0.3;
   for (const month of result.resumen_mensual) {
     guaranteedIncome += month.total_creditos;
     fixedExpenses += month.total_debitos;
@@ -283,7 +283,7 @@ export const checkCreditRecord = async (creditRecord: CreditRecord) => {
   const currentAmountOfDebt = 0;
   const method2MaxAmount = maxAmountOfDebt - currentAmountOfDebt;
   // Method 3: Based on a variable expense
-  const maxVariableDebtAsExpenseRatio = 0.2;
+  const maxVariableDebtAsExpenseRatio = 0.3;
   const maxVariableDebtAsExpense =
     maxVariableDebtAsExpenseRatio * fixedExpenses;
   const method3MaxAmount = maxVariableDebtAsExpense - currentAmountOfDebt;
