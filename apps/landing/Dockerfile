@@ -1,4 +1,4 @@
-FROM oven/bun:1.2.0 as base
+FROM oven/bun:1.2.2 as base
 
 WORKDIR /usr/src/app
 
@@ -19,7 +19,7 @@ COPY . .
 # Test step
 # ENV NODE_ENV=TEST
 # RUN bun test
-RUN bun run build
+RUN cd apps/landing && bun add astro && bun run build
 
 USER bun
 ENV PORT=4321
