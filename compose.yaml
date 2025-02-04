@@ -1,0 +1,25 @@
+services:
+  landing:
+    image: landing-cci:latest
+    container_name: landing-cci
+    ports:
+      - 4321:4321
+
+  backend:
+    image: backend-cci:latest
+    container_name: backend-cci
+    ports:
+      - 3000:3000
+    secrets:
+      - backend-env
+    environment:
+      - OPENAI_API_KEY=/run/secrets/backend-env
+      - DATABASE_URL=/run/secrets/backend-env
+      - SUPABASE_DB_PASSWORD=/run/secrets/backend-env
+      - SUPABASE_API_KEY=/run/secrets/backend-env
+      - SUPABASE_URL=/run/secrets/backend-env
+      - RESEND_API_KEY=/run/secrets/backend-env
+
+secrets:
+  backend-env:
+    file: ./secrets/backend.env
