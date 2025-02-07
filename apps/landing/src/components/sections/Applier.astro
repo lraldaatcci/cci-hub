@@ -185,14 +185,48 @@ import DefaultImage from "../../assets/pics/male_profile_pic.svg";
 
       try {
         // Get RENAP data
-        const renapResponse = await actions.getRenapData({
+        let renapResponse = await actions.getRenapData({
           dpi: dpi.value,
         });
-
+        console.log(renapResponse);
         if (renapResponse.error) {
-          throw new Error(renapResponse.error.message);
+          //throw new Error(renapResponse.error.message);
+          // use a mock user
+          renapResponse = {
+            data: {
+              message: "",
+              status: 200,
+              success: true,
+              error: null,
+              data: {
+                firstName: "Juan",
+                secondName: "Pablo",
+                thirdName: "",
+                firstLastName: "Gomez",
+                secondLastName: "Perez",
+                marriedLastName: "",
+                birthDate: "1990-01-01",
+                dpi: "0000 00000 0000",
+                gender: "M",
+                civil_status: "S",
+                nationality: "GUATEMALTECA",
+                borned_in: "GUATEMALA",
+                department_borned_in: "GUATEMALA",
+                municipality_borned_in: "GUATEMALA",
+                cedula_order: "",
+                picture: "",
+                cedula_register: "",
+                deathDate: "",
+                ocupation: "",
+                dpi_expiracy_date: "2030-01-01",
+              },
+            },
+            error: undefined,
+          };
         }
-
+        if (!renapResponse.data) {
+          throw new Error("No data received from RENAP");
+        }
         // Submit lead immediately
         const { data, error } = await actions.submitLead({
           name: `${renapResponse.data.data.firstName} ${renapResponse.data.data.secondName || ""} ${renapResponse.data.data.firstLastName} ${renapResponse.data.data.secondLastName}`,

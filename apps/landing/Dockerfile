@@ -2,24 +2,31 @@ FROM oven/bun:1.2.2 AS base
 
 WORKDIR /usr/src/app
 
-FROM base AS install 
-RUN mkdir -p /temp/dev 
-COPY bun.lockb package.json /temp/dev/
-RUN cd /temp/dev && bun install
+FROM base AS builder 
+WORKDIR /app
 
-RUN mkdir -p /temp/prod
-COPY bun.lockb package.json /temp/prod/
-COPY package.json /temp/prod/
-RUN cd /temp/prod && bun install
+RUN bun add -g turbo
 
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
+
+RUN turbo prune @repo/landing --docker
+
+
+FROM base AS installer
+WORKDIR /app
+COPY --from=builder /app/out/json/ .
+RUN bun install
+
+COPY --from=builder /app/out/full/ .
+RUN cd apps/landing && bun add astro && bun run build
+
+FROM base AS runner
+WORKDIR /app
 
 # Test step
 # ENV NODE_ENV=TEST
 # RUN bun test
-RUN cd apps/landing && bun add astro && bun run build
+
 
 USER bun
 ENV PORT=4321

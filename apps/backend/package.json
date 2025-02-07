@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "start": "bun run index.ts",
     "build": "tsc --emitDeclarationOnly",
     "dev": "bun run --watch index.ts",
     "db:generate": "drizzle-kit generate",
