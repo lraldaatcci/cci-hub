@@ -46,6 +46,12 @@ data['EDAD (RANGO DE EDAD EN AÑOS)'] = data['EDAD (RANGO DE EDAD EN AÑOS)'].st
 data['ANTIGUEDAD'] = data['ANTIGUEDAD'].str.strip()
 data['ESTADO CIVIL'] = data['ESTADO CIVIL'].str.strip()
 
+# Ensure 'DEPENDIENTES ECONOMICOS' is numeric
+data['DEPENDIENTES ECONOMICOS'] = pd.to_numeric(data['DEPENDIENTES ECONOMICOS'], errors='coerce')
+
+# Fill missing values in 'DEPENDIENTES ECONOMICOS' with the mean or a specific value
+data['DEPENDIENTES ECONOMICOS'].fillna(data['DEPENDIENTES ECONOMICOS'].mean(), inplace=True)
+
 # --------------------
 # Mapping Categorical Variables
 # --------------------
@@ -71,7 +77,7 @@ data['TARJETA DE CREDITO'] = data['TARJETA DE CREDITO'].apply(lambda x: 1 if x =
 # --------------------
 # A candidate is considered "fit" (1) if they have 0 cuotas pendientes actual,
 # and not fit (0) if they have 1 or more pending cuotas.
-data['FIT'] = data['Cuotas pendientes actual'].apply(lambda x: 1 if x == 0 else 0)
+data['FIT'] = data['Cuotas pendientes actual'].apply(lambda x: 1 if x <= 1 else 0)
 
 # --------------------
 # Prepare Data for Modeling
